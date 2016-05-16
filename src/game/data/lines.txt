@@ -1,0 +1,211 @@
+/ weapon names
+w_sword * sword
+* This is a large sword made of *.
+w_club * club
+* This is a club made of *, manufactured by the Enforcers.
+w_boneClub * club
+* This is a crude club made out of * by an insane cannibal.
+w_knife * knife
+* This is a small knife made of *.
+w_bow * bow
+* This is a longbow made of *.
+w_crossbow * crossbow
+* This is a crossbow made of *.
+/ armor names
+a_clothes clothes
+* This is an ordinary set of clothes.
+a_robes robes
+* This is a heavy cloth robe.
+a_bikini * light armor
+* This is a minimal set of armor made of *.
+a_leather * armor
+* This is a set of armor made of *.
+a_cheapLeather crude * armor
+* This is a set of armor made of *. Poorly.
+a_enforcerLeather * Enforcer uniform
+* This is a thick uniform made of *, worn by some members of the Enforcers.
+a_boneArmor * armor
+* This is a crude set of armor made out of * by an insane cannibal.
+a_breastplate * breastplate
+* This is a solid breastplate of *.
+a_enforcer * Enforcer plate
+* This is a heavy set of * armor, manufactured by the Enforcers.
+a_commissioner Enforcer * uniform
+* This is an elite uniform meant for a high-ranking Enforcer.
+a_hierophant ceremonial * worshipper garb
+* This is an impractical-looking set of * armor once worn by a walking statue.
+/ item names
+i_potion healing potion
+* This vial contains a liquid with healing properties.
+i_healingHerbs healing herbs
+* These herbs can be ground up into medicine.
+i_invisPotion vanishing potion
+* This vial contains a liquid that turns the drinker invisible for a little while.
+i_invisHerbs vanishing herbs
+* These herbs can be ground up into a stealthy draught.
+i_speedPotion stimulating potion
+* This vial contains a liquid that makes the drinker very fast for a little while.
+i_speedHerbs stimulating herbs
+* These herbs can be ground up into performance-enhancing drugs.
+i_immunePotion resistance potion
+* This vial contains a liquid that wards away magic for a little while.
+i_immuneHerbs resistance herbs
+* These herbs can be ground up into a drink with anti-magic properties.
+i_missileIdol idol of barrage
+* This small statue, made of darkstone, contains fierce magic.
+i_missileRaw strange block
+* This is a brick of darkstone, infused with some kind of magic. Maybe you could try to carve it?
+i_poisonIdol idol of poison
+* This small statue, made of some kind of metal, contains vile magic.
+i_poisonRaw strange block
+* This is a bar of some kind of metal, infused with some kind of magic. Maybe you could try to carve it?
+i_snareIdol idol of snaring
+* This small statue, made of darkwood, contains stifling magic.
+i_snareRaw strange block
+* This is a length of darkwood, infused with some kind of magic. Maybe you could try to carve it?
+i_blastIdol idol of blasting
+* This small statue, made of stone, contains explosive magic.
+i_blastRaw strange block
+* This is a brick of stone, infused with some kind of magic. Maybe you could try to carve it?
+i_repairKit repair kit
+* This kit contains tools and spare parts that can be used to repair a weapon or piece of armor.
+i_bread bread
+* A popular staple food. The flour to make it probably came from the surface.
+i_humanCorpse human corpse
+* This human body is mangled beyond recognition. You could eat it but... the thought is making you sick.
+i_spiderCorpse dead spider
+* Eating this is probably not a good idea...
+i_snakeCorpse dead snake
+* This doesn't look very filling. At least you can remove the venom sack easily.
+i_ratCorpse rat corpse
+* If only you had ketchup.
+i_rolloCorpse rollo corpse
+* This body is, unfortunately, too tough to eat. Or perhaps fortunately, as there's no way it would taste good.
+i_wolfCorpse deephound corpse
+* Deephounds might be a popular pet, but they can be eaten in a pinch.
+i_rocks rocks
+* These rocks don't seem to be particularly valuable or useful.
+i_crystal crystal
+* This rough crystal is pretty but not particularly useful.
+i_canFood Canned Soup
+* Canned food like this is an expensive but long-lasting ration.
+i_caveFruit Cave Fruit
+* This is some sort of fruit that can grow underground. They're a little bitter, so they're something of an acquired taste.
+i_ratToken rat token
+* This token, made of some kind of metal, summons a pet rat when broken.
+i_wolfToken deephound token
+* This token, made of darkstone, summons a pet deephound when broken.
+i_rolloToken rollo token
+* This token, made of stone, summons a pet rollo when broken.
+i_orbToken orb token
+* This token, made of crystal, summons a pet orb when broken.
+i_spiderToken spider token
+* This token, made of darkwood, summons a pet spider when broken.
+/ material names
+m_crystal crystal
+m_rusted rusty iron
+m_iron iron
+m_lead lead
+m_steel steel
+m_titanium titanium
+m_magnesium magnesium
+m_darkmetal darkmetal
+m_scrapWood scrap wood
+m_oak oak
+m_ebony ebony
+m_ivory ivory
+m_monsterLeather monster hide
+m_hide hide
+m_yellowedBone yellowed bone
+m_bone bone
+m_chitin chitin
+m_monsterBone monster bone
+m_monsterChitin monster chitin
+m_laminate laminate
+m_yew fine yew
+m_darkwood darkwood
+m_scrapLeather scrap leather
+m_leather leather
+m_hardenedLeather hardened leather
+m_treatedLeather treated leather
+m_darkhide darkhide
+m_commissioner0 sergeant
+m_commissioner1 senior sergeant
+m_commissioner2 inspector
+m_commissioner3 commander
+m_commissioner4 comissioner
+/ player class names
+p_warrior warrior
+* You are a proud warrior, searching for worthy challenges in the Old Temple. Here, you shall find them in abundance.
+p_scout scout
+* You are a wilderness scout, searching the Old Temple in the hopes that your skills will allow you to make a profit here.
+p_alchemist alchemist
+* You are an alchemist, traveling to the Old Temple in search of the abundance of rare magical herbs rumored to exist within.
+p_assassin assassin
+* You are a trained assassin, stuck in the Old Temple after to an ill-timed attempt to lay low. Now you must find a way out.
+p_artist historian
+* You are an historian, lured to the Old Temple by the promise of finding out more about the mysterious Idols that can be found within. You have trained yourself in what Idol-making techniques you could find in your research.
+p_enforcer former Enforcer
+* You were once a member of the Enforcers, but you felt they had become unjust and left. Don't expect any sympathy from your former friends.
+p_petWolf deephound
+* Deephounds are an animal found near the Old Temple. Domesticated deephounds are a popular pet for people who want a pet that can maul their enemies.
+p_petRollo rollo
+* Rollos are a strange, insect-like creature. They are a good pet for the non-pet-owner: unaffectionate and hard to accidentally kill.
+p_petRat rat
+* You might not think that a pet rat would be very useful, but the rats you can find around the Old Temple can grow pretty big.
+/ relic names
+r_glasses surgeon's eyeglasses
+* You bought these strange eyeglasses from a merchant soon before entering the Old Temple. They make assessing the health of others much easier.
+r_rod dowser's rod
+* You bought this weird rod from a merchant soon before entering the Old Temple. With it, you'll always know which way to go.
+r_toothpick soldier's toothpick
+* You bought this old toothpick from a merchant soon before entering the Old Temple. It makes you feel confident in your ability to judge a fight.
+/ enchantment names
+e_enhancedW deadly
+* This weapon seems like it could really hurt someone.
+e_enhancedA strengthened
+* This armor seems like it will protect you well.
+e_reinforcedW reinforced
+* This weapon can take a real beating!
+e_reinforcedA reinforced
+* This armor can take a real beating!
+e_cursedW cursed
+* No matter how you try, you can't seem to stop holding this weapon.
+e_cursedA cursed
+* No matter how you try, you can't seem to take off this armor.
+e_snareW of trapping
+* This weapon feels sticky to the touch. You feel like a good hit with it could lock someone in place.
+e_poisonW of poisoning
+* This weapon feels sickly to the touch, like it might contaminate you.
+e_slowW of slowing
+* This weapon feels slimy to the touch. Poking anywhere but the handle makes your fingers feel sluggish and numb.
+e_meleeA of hardiness
+* This armor makes you feel much tougher when you put it on, like you wouldn't even feel a punch to the face.
+e_rangedA of 
+* This armor makes you feel much safer when you put it on, like you won't need to worry about arrows anymore.
+e_specialA of resilience
+* This armor makes you feel much calmer when you put it on, like magic can no longer touch you.
+/ faction names
+f_criminals criminals
+f_enforcers Enforcers
+f_animals monsters
+f_worshippers worshippers
+f_players heroes
+/ special names
+x_missiles force barrage
+x_slow slow
+x_blast force blast
+x_poison venom
+x_snare ensnare
+/ skill names
+s_dodge dodge
+s_block block
+s_unarmed unarmed
+s_club club
+s_blade blade
+s_archery archery
+s_brewing brewing
+s_art magic arte
+s_animal pet mastery
+/
+/

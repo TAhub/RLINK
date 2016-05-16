@@ -1,0 +1,585 @@
+SHEET:
+/ name width height originX originY
+spr_player 32 48 20 32
+spr_tile 40 40 0 0
+spr_weapon 52 58 30 42
+spr_item 20 20 10 10
+spr_teleportAnim 48 50 28 34
+spr_projectile 20 40 5 20
+spr_icon 12 12 6 6
+/
+/
+SOUND:
+/snd_attack
+/
+/
+MAP:
+/ name startRoom endRoom nonleafRooms minRooms maxRooms enemiesPerRoom itemsPerRoom mainEnemyListsList mapsGoTo
+/ note: do not change the order of these; jail must be at 0, etc
+/ jails are a simple map type, full of enforcers and with jail cells containing prisoners
+map_jail rm_jailStart rm_jailEnd lst_jailNonLeafRooms 10 20 190 300 none lst_dungeonMaps
+/ dungeons are the basic map type; they can be for any enemy, and have a few special rooms with special enemy types
+map_dungeon rm_dungeonStart rm_dungeonEnd lst_dungeonNonLeafRooms 12 28 150 280 lst_allEnemyLists lst_dungeonMaps
+/ forests are a pretty basic animal-only map of consistent length; good source of herbs
+map_forest rm_forestStart rm_forestEnd lst_forestNonLeafRooms 18 22 150 265 none lst_forestMaps
+/ crystal caves are a short but intense worshipper or enforcer map
+map_crystalCave rm_crystalCaveStart rm_crystalCaveEnd lst_crystalCaveNonLeafRooms 8 12 225 320 lst_crystalCaveEnemyLists lst_crystalCaveMaps
+/ cathedrals are another worshipper or enforcer map, with the quirk that all leaf rooms are turret rooms
+map_cathedral rm_cathedralStart rm_cathedralEnd lst_cathedralNonLeafRooms 12 16 180 270 lst_crystalCaveEnemyLists lst_cathedralMaps
+/ mines are enforcer or criminal maps; they have a lot of rooms, but the rooms are smallish; they are a good source of raw idols
+map_mine rm_mineStart rm_mineEnd lst_mineNonLeafRooms 20 28 130 230 lst_mineEnemyLists lst_mineMaps
+/
+/
+ROOM:
+/ name leafRooms minSize maxSize enemyTickets enemyList itemTickets itemList tileset color doorFrame obstacleList minObstacles maxObstacles
+/ specific rooms
+rm_final none 0 0 0 none 0 none tls_crystal clr_crystal 10 none 0 0
+rm_finalBoss none 0 0 0 none 0 none tls_brick clr_gold 10 lst_obCathedral 5 5
+/ an enemy list of "none" uses the map's main enemy list
+/ unique leaf rooms, to be put in various maps
+rm_cannibal none 10 13 3 lst_cannibals 3 itl_nature tls_dirtyRock clr_darkRusted 17 lst_obPits 0 1
+rm_enforcerOutpost none 5 8 3 lst_enforcers 3 itl_structure tls_brickJail clr_darkstone 10 lst_obPits 0 1
+rm_snakeNest none 5 6 4 lst_snakes 1 itl_nature tls_rock clr_stone 17 lst_obPits 0 1
+rm_spiderNest none 5 6 4 lst_spiders 1 itl_nature tls_natureCave clr_dirt 17 lst_obWebs 2 3
+rm_temple none 9 9 3 lst_turrets 1 itl_structure tls_brick clr_stone 10 lst_obPits 0 1
+/ jail rooms
+rm_jailStart none 4 6 0 none 0 none tls_brickJail clr_darkRusted 11 lst_obPits 0 1
+rm_jailEnd none 7 10 1 lst_enforcers 2 itl_structure tls_brickJail clr_darkstone 10 lst_obPits 1 2
+rm_jailCell none 4 6 1 lst_prisoners 0 none tls_brickJail clr_darkRusted 11 lst_obPits 0 1
+rm_jailCoridoor lst_jailCoridoorLeafRooms 6 9 2 lst_enforcers 2 itl_structure tls_brickJail clr_darkstone 10 lst_obPits 1 2
+rm_jailDorm lst_jailDormLeafRooms 8 10 3 lst_enforcers 3 itl_structure tls_brickJail clr_darkstone 10 lst_obLivingFurniture 4 6
+rm_jailArmory lst_jailArmoryLeafRooms 6 9 2 lst_enforcers 5 itl_armory tls_brickJail clr_darkstone 10 lst_obArmory 3 6
+/ dungeon rooms
+rm_dungeonStart none 4 6 0 none 1 itl_structure tls_brick clr_stone 10 lst_obPits 0 1
+rm_dungeonEnd none 5 7 0 none 1 itl_structure tls_brick clr_stone 10 lst_obPits 0 1
+rm_dungeonBrick lst_dungeonBrickLeafRooms 7 10 3 none 3 itl_structure tls_brick clr_stone 10 lst_obPits 0 2
+rm_dungeonRock lst_dungeonRockLeafRooms 9 14 3 none 2 itl_nature tls_rock clr_stone 17 lst_obPits 0 2
+rm_dungeonRockSmall none 6 9 2 none 2 itl_nature tls_rock clr_stone 17 lst_obPits 0 1
+/ forest rooms
+rm_forestStart none 4 6 0 none 1 itl_nature tls_natureCave clr_dirt 17 lst_obPlants 0 2
+rm_forestEnd none 6 8 0 lst_animals 2 itl_nature tls_brickJail clr_grass 10 lst_obPlants 0 1
+rm_forest lst_forestLeafRooms 11 14 3 lst_animals 2 itl_nature tls_natureCave clr_dirt 17 lst_obPlants 0 4
+rm_forestTemple none 9 9 3 lst_turrets 1 itl_structure tls_brickJail clr_grass 10 lst_obPlants 0 1
+rm_forestCave none 4 6 2 lst_animals 1 itl_nature tls_dirtyRock clr_stone 17 lst_obPlants 0 1
+/ crystal cave rooms
+rm_crystalCaveStart none 4 6 0 none 1 itl_crystal tls_crystal clr_crystal 17 lst_obPits 0 1
+rm_crystalCaveEnd none 5 8 1 none 3 itl_crystal tls_crystal clr_crystal 17 lst_obPits 0 1
+rm_crystalCave lst_crystalCaveLeafRooms 7 9 3 none 2 itl_crystal tls_crystal clr_crystal 17 lst_obPits 0 2
+rm_crystalCaveHuge none 12 16 6 none 4 itl_crystal tls_crystal clr_crystal 17 lst_obPits 2 7
+/ cathedral rooms
+rm_cathedralStart none 9 9 0 none 1 itl_structure tls_brick clr_crystal 10 lst_obCathedral 1 3
+rm_cathedralEnd none 9 9 0 none 1 itl_structure tls_brick clr_crystal 10 lst_obCathedral 1 3
+rm_cathedral lst_cathedralLeafRooms 9 9 3 none 1 itl_structure tls_brick clr_crystal 10 lst_obCathedral 1 3
+rm_cathedralLeaf none 9 9 2 none 3 itl_structure tls_brick clr_crystal 10 lst_obCathedral 1 3
+/ mine rooms
+rm_mineStart none 4 6 0 none 1 itl_mine tls_mine clr_darkstone 17 lst_obPits 0 1
+rm_mineEnd none 5 8 0 none 1 itl_mine tls_mine clr_darkstone 17 lst_obPits 0 1
+rm_mine lst_mineLeafRooms 2 5 2 none 2 itl_mine tls_mine clr_darkstone 17 lst_obPits 0 1
+rm_mineLarge lst_mineLeafRooms 6 10 3 none 3 itl_mine tls_mine clr_darkstone 17 lst_obPits 1 2
+rm_mineTreasury none 5 6 1 none 5 itl_mine tls_mine clr_darkstone 17 lst_obArmory 2 3
+rm_mineDorm none 6 8 3 none 2 itl_mine tls_mine clr_darkstone 17 lst_obLivingFurniture 4 5
+rm_mineSpider none 2 5 2 lst_spiders 1 itl_mine tls_mine clr_darkstone 17 lst_obWebs 1 2
+/ name leafRooms minSize maxSize enemyTickets enemyList itemTickets itemList tileset color doorFrame obstacleList minObstacles maxObstacles
+/
+/
+TILESET:
+/ name wallTileStart wallTileEnd cornerTileStart cornerTileEnd floorTileStart floorTileEnd
+tls_brickJail 30 34 2 3 4 7
+tls_brick 27 29 2 3 18 21
+tls_rock 22 24 25 26 18 21
+tls_dirtyRock 35 37 25 26 4 7
+tls_natureCave 35 37 25 26 7 9
+tls_crystal 22 24 25 26 42 44
+tls_mine 48 50 25 26 18 21
+/
+/
+ITEMLIST:
+/ name itemList equipmentList equipmentChance
+itl_structure lst_normalItems lst_allEquipment 35
+itl_nature lst_natureItems lst_allEquipment 20
+itl_armory lst_normalItems lst_allEquipment 75
+itl_crystal lst_crystalItems lst_allEquipment 25
+itl_mine lst_mineItems lst_allEquipment 30
+/
+/
+LIST:
+/ name *
+/ map transition lists
+/ not every map type should transition to every other map type
+lst_dungeonMaps map_dungeon map_dungeon map_forest map_crystalCave map_cathedral map_mine
+lst_forestMaps map_forest map_forest map_dungeon map_crystalCave
+lst_crystalCaveMaps map_dungeon map_forest
+lst_cathedralMaps map_dungeon
+lst_mineMaps map_dungeon map_dungeon map_mine
+/ room lists
+lst_jailNonLeafRooms rm_jailCoridoor rm_jailCoridoor rm_jailCoridoor rm_jailDorm rm_jailArmory
+lst_jailCoridoorLeafRooms rm_jailCell
+lst_jailDormLeafRooms rm_jailDorm rm_jailDorm rm_jailCoridoor
+lst_jailArmoryLeafRooms rm_jailArmory rm_jailArmory rm_jailCoridoor
+lst_dungeonNonLeafRooms rm_dungeonBrick rm_dungeonRock
+lst_dungeonRockLeafRooms rm_dungeonRockSmall rm_dungeonRockSmall rm_dungeonRockSmall rm_dungeonRockSmall rm_dungeonBrick rm_dungeonBrick rm_cannibal rm_snakeNest
+lst_dungeonBrickLeafRooms rm_dungeonBrick rm_dungeonBrick rm_dungeonBrick rm_dungeonBrick rm_dungeonRockSmall rm_dungeonRockSmall rm_enforcerOutpost rm_temple
+lst_forestNonLeafRooms rm_forest
+lst_forestLeafRooms rm_forest rm_forest rm_forest rm_forest rm_forestCave rm_forestCave rm_cannibal rm_enforcerOutpost rm_forestTemple rm_spiderNest
+lst_crystalCaveNonLeafRooms rm_crystalCave
+lst_crystalCaveLeafRooms rm_crystalCave rm_crystalCave rm_dungeonRockSmall rm_temple rm_enforcerOutpost rm_crystalCaveHuge
+lst_cathedralNonLeafRooms rm_cathedral
+lst_cathedralLeafRooms rm_cathedralLeaf
+lst_mineNonLeafRooms rm_mine rm_mine rm_mine rm_mineLarge
+lst_mineLeafRooms rm_mine rm_mine rm_mine rm_mine rm_mineTreasury rm_mineDorm rm_mineTreasury rm_mineDorm rm_temple rm_snakeNest rm_spiderNest rm_mineSpider rm_mineSpider
+/ obstacle lists
+lst_obPits 12 13
+lst_obCathedral 12 13 45 45 45 46 46 46 47 47 47
+lst_obLivingFurniture 14 15
+lst_obArmory 16
+lst_obPlants 12 13 38 38 38 39 39 39 40 40 40 41 41 41
+lst_obWebs 51 52
+/ item lists
+/ name id* min* max* (1-?)
+lst_normalItems it_potion 1 1 it_potion 1 2 it_potion 1 2 it_potion 2 3 it_invisPotion 1 1 it_speedPotion 1 1 it_immunePotion 1 1 it_repairKit 1 1 it_repairKit 1 1 it_bread 1 2 it_canFood 1 1 it_missileIdol 1 1 it_poisonIdol 1 1 it_blastIdol 1 1 it_snareIdol 1 1 it_missileRaw 1 1 it_poisonRaw 1 1 it_blastRaw 1 1 it_snareRaw 1 1 it_ratToken 1 1 it_rolloToken 1 1
+lst_natureItems it_potion 1 2 it_healingHerbs 1 2 it_healingHerbs 1 2 it_healingHerbs 1 2 it_invisHerbs 1 1 it_speedHerbs 1 1 it_immuneHerbs 1 1 it_rocks 1 1 it_caveFruit 1 2 it_wolfToken 1 1 it_ratToken 1 1 it_rolloToken 1 1
+lst_crystalItems it_potion 1 2 it_potion 1 2 it_missileIdol 1 1 it_poisonIdol 1 1 it_blastIdol 1 1 it_snareIdol 1 1 it_missileIdol 1 1 it_poisonIdol 1 1 it_blastIdol 1 1 it_snareIdol 1 1 it_crystal 1 1 it_crystal 1 2 it_crystal 1 3 it_crystal 1 4 it_missileRaw 1 1 it_poisonRaw 1 1 it_blastRaw 1 1 it_snareRaw 1 1 it_wolfToken 1 1 it_ratToken 1 1 it_orbToken 1 1
+lst_mineItems it_potion 1 2 it_potion 1 2 it_potion 1 3 it_missileRaw 1 1 it_blastRaw 1 1 it_poisonRaw 1 1 it_snareRaw 1 1 it_rocks 1 2 it_missileRaw 1 1 it_blastRaw 1 1 it_poisonRaw 1 1 it_snareRaw 1 1 it_rocks 1 2 it_spiderToken 1 1
+/ equipment lists
+/ name id weapon
+lst_allEquipment wpn_sword true wpn_club true wpn_knife true wpn_bow true wpn_crossbow true arm_bikini false arm_cheapLeather false arm_leather false arm_enforcerLeather false arm_breastplate false arm_enforcer false
+/ meta creature lists
+lst_allEnemyLists lst_criminals lst_enforcers lst_worshippers lst_animals
+lst_crystalCaveEnemyLists lst_worshippers lst_worshippers lst_enforcers
+lst_mineEnemyLists lst_enforcers lst_criminals
+/ creature lists
+/ note that each list that ever shows up in an end room MUST have a boss list after it
+lst_prisoners cr_prisoner1 cr_prisoner2
+lst_cannibals cr_cannibal
+lst_snakes cr_snake
+lst_spiders cr_spider
+lst_turrets cr_fastTurret cr_strongTurret
+lst_criminals cr_bandit1 cr_mugger1 cr_bandit2 cr_mugger2 cr_crimeWolf cr_heavy
+lst_criminalBosses cr_chief
+lst_enforcers cr_officer cr_marksman cr_officer cr_marksman cr_scout
+lst_enforcerBosses cr_commissioner
+lst_worshippers cr_supplicant cr_priest cr_supplicant cr_priest cr_pilgrim cr_orb cr_orb
+lst_worshipperBosses cr_hierophant
+lst_animals cr_rat cr_rat cr_rollo cr_rollo cr_wolf cr_wolf cr_werewolf
+lst_animalBosses cr_werewolfAlpha
+/ material lists
+lst_metalMaterials mat_rusted mat_iron mat_steel mat_titanium mat_darkmetal mat_lead mat_magnesium
+lst_woodMaterials mat_scrapWood mat_oak mat_laminate mat_yew mat_darkwood mat_ebony mat_ivory
+lst_leatherMaterials mat_scrapLeather mat_leather mat_hardenedLeather mat_treatedLeather mat_darkhide mat_hide mat_monsterLeather
+lst_boneMaterials mat_yellowedBone mat_bone mat_chitin mat_monsterBone mat_monsterChitin
+lst_commissionerMaterials mat_commissioner0 mat_commissioner1 mat_commissioner2 mat_commissioner3 mat_commissioner4
+lst_clothMaterials mat_cloth1 mat_cloth2 mat_cloth3 mat_cloth4 mat_cloth5
+lst_crystalMaterials mat_crystal1 mat_crystal2 mat_crystal3 mat_crystal4 mat_crystal5
+/ creature appearance lists
+lst_humanSkinColors clr_humanSkin1 clr_humanSkin2 clr_humanSkin3
+lst_humanHairColors clr_humanHair1 clr_humanHair2 clr_humanHair3
+lst_humanHairs hair_short none
+lst_humanHairsF hair_short hair_long
+lst_worshipperSkinColors clr_stone clr_darkstone clr_darkRusted
+lst_goldWorshipperSkinColors clr_gold
+lst_furColors clr_leather clr_darkhide clr_ivory
+lst_chitinColors clr_chitin clr_monsterChitin
+lst_snakeSkinColors clr_grass clr_dirt
+lst_spiderSkinColors clr_darkmetal clr_darkhide clr_darkwood clr_darkstone
+/
+/
+WEAPON:
+/ name damage numHits baseDodge usesDex skill range durability materialList frame itemFrame fullName anim
+/ special weapons, do not change order
+wpn_unarmed 13 3 35 false skill_unarmed 1 0 none none none none aanim_bash
+wpn_bashing 30 1 50 false skill_club 1 0 none none none none aanim_bash
+/ real weapons
+wpn_sword 35 1 40 false skill_blade 1 1500 lst_metalMaterials 0 0 @w_sword aanim_slash
+wpn_club 40 1 45 false skill_club 1 2000 lst_metalMaterials 1 1 @w_club aanim_bash
+wpn_crystalClub 40 1 37 false skill_club 1 2000 lst_crystalMaterials 1 1 @w_club aanim_bash
+wpn_boneClub 39 1 43 false skill_club 1 1000 lst_boneMaterials 5 16 @w_boneClub aanim_bash
+wpn_knife 20 2 35 true skill_blade 1 1300 lst_metalMaterials 2 2 @w_knife aanim_slash
+wpn_bow 19 2 30 false skill_archery 8 1300 lst_woodMaterials 3 3 @w_bow aanim_shoot
+wpn_crossbow 38 1 40 true skill_archery 7 1150 lst_woodMaterials 4 4 @w_crossbow aanim_shoot
+/ natural weapons
+wpn_werewolfClaws 18 3 38 false skill_unarmed 1 0 lst_boneMaterials none none none aanim_claws
+wpn_naturalBash 40 1 45 false skill_club 1 0 lst_metalMaterials none none none aanim_bash
+wpn_bite 35 1 40 false skill_blade 1 0 lst_boneMaterials none none none aanim_bite
+wpn_fastTurret 16 3 40 true skill_archery 7 0 lst_metalMaterials none none none aanim_shoot
+wpn_strongTurret 36 1 35 true skill_archery 7 0 lst_metalMaterials none none none aanim_rangedBash
+/
+/
+ATTACKANIM:
+/ name projectile fixedSpeed screenRumble
+aanim_bash 0 none false
+aanim_rangedBash 0 600 false
+aanim_shoot 1 650 false
+aanim_slash 2 none false
+aanim_bite 3 none false
+aanim_claws 4 none false
+aanim_blast 5 450 true
+/
+/
+ARMOR:
+/ name defense maxDodge speedPenalty durability materials frame legGender armFrame itemFrame fullName
+/ special armors, do not change order
+arm_naked 0 100 0 0 none none false none none none
+/ real armors
+arm_clothes 0 100 0 800 lst_clothMaterials 16 true none 8 @a_clothes
+arm_robes 1 80 0 700 lst_clothMaterials 96 false none 31 @a_robes
+arm_bikini 1 100 0 1200 lst_leatherMaterials 40 false none 10 @a_bikini
+arm_cheapLeather 2 80 0 1500 lst_leatherMaterials 56 false none 6 @a_cheapLeather
+arm_leather 4 65 0 1800 lst_leatherMaterials 8 true none 5 @a_leather
+arm_enforcerLeather 6 55 0 2400 lst_leatherMaterials 48 false 28 7 @a_enforcerLeather
+arm_commissioner 6 55 0 3400 lst_commissionerMaterials 48 false 28 7 @a_commissioner
+arm_boneArmor 7 50 0 1200 lst_boneMaterials 72 false none 17 @a_boneArmor
+arm_breastplate 8 45 0 2100 lst_metalMaterials 16 true none 8 @a_breastplate
+arm_hierophant 12 5 0 1300 lst_metalMaterials 64 false 68 15 @a_hierophant
+arm_crystalHierophant 12 50 0 1300 lst_crystalMaterials 64 false 68 15 @a_hierophant
+arm_enforcer 12 5 1 2500 lst_metalMaterials 24 false 28 9 @a_enforcer
+/ natural armor
+arm_naturalHeavy 10 10 0 0 lst_metalMaterials none false none none none
+arm_naturalLight 1 100 0 0 lst_leatherMaterials none false none none none
+arm_naturalMedium 6 55 0 0 lst_boneMaterials none false none none none
+/
+/
+MATERIAL:
+/ name bonus durabilityBonus factionBonus color tier name
+mat_none 0 0 none clr_white 0 none
+/ metal materials
+mat_rusted 0 0 none clr_rusted 0 @m_rusted
+mat_iron 12 10 none clr_iron 1 @m_iron
+mat_lead 10 9 fct_worshipper clr_lead 1 @m_lead
+mat_steel 22 22 none clr_steel 2 @m_steel
+mat_titanium 37 30 none clr_titanium 3 @m_titanium
+mat_magnesium 31 27 fct_animal clr_magnesium 3 @m_magnesium
+mat_darkmetal 50 50 none clr_darkmetal 4 @m_darkmetal
+/ cloth materials
+mat_cloth1 0 0 none clr_cloth 0 none
+mat_cloth2 12 10 none clr_cloth 1 none
+mat_cloth3 25 20 none clr_cloth 2 none
+mat_cloth4 40 27 none clr_cloth 3 none
+mat_cloth5 50 50 none clr_cloth 4 none
+/ crystal materials
+mat_crystal1 0 0 none clr_crystal 0 @m_crystal
+mat_crystal2 12 10 none clr_crystal 1 @m_crystal
+mat_crystal3 25 20 none clr_crystal 2 @m_crystal
+mat_crystal4 40 27 none clr_crystal 3 @m_crystal
+mat_crystal5 50 50 none clr_crystal 4 @m_crystal
+/ wood materials
+mat_scrapWood 0 0 none clr_scrapWood 0 @m_scrapWood
+mat_oak 12 10 none clr_oak 1 @m_oak
+mat_laminate 25 20 none clr_laminate 2 @m_laminate
+mat_ebony 21 18 fct_enforcer clr_ebony 2 @m_ebony
+mat_yew 40 27 none clr_yew 3 @m_yew
+mat_darkwood 50 50 none clr_darkwood 4 @m_darkwood
+mat_ivory 42 45 fct_criminal clr_ivory 4 @m_ivory
+/ leather materials
+mat_scrapLeather 0 0 none clr_scrapLeather 0 @m_scrapLeather
+mat_leather 12 10 none clr_leather 1 @m_leather
+mat_hardenedLeather 25 20 none clr_hardenedLeather 2 @m_hardenedLeather
+mat_hide 21 18 fct_criminal clr_hide 2 @m_hide
+mat_treatedLeather 40 27 none clr_treatedLeather 3 @m_treatedLeather
+mat_darkhide 50 50 none clr_darkhide 4 @m_darkhide
+mat_monsterLeather 42 45 fct_enforcer 4 @m_monsterLeather
+/ bone materials
+mat_yellowedBone 0 0 none clr_yellowedBone 0 @m_yellowedBone
+mat_bone 12 10 none clr_bone 1 @m_bone
+mat_chitin 25 20 none clr_chitin 2 @m_chitin
+mat_monsterBone 37 30 none clr_monsterBone 3 @m_monsterBone
+mat_monsterChitin 50 40 none clr_monsterChitin 4 @m_monsterChitin
+/ commissioner outfit materials
+mat_commissioner0 0 0 none clr_crystal 0 @m_commissioner0
+mat_commissioner1 12 10 none clr_crystal 1 @m_commissioner1
+mat_commissioner2 25 20 none clr_crystal 2 @m_commissioner2
+mat_commissioner3 40 27 none clr_crystal 3 @m_commissioner3
+mat_commissioner4 50 50 none clr_crystal 4 @m_commissioner4
+/
+/
+SKILL:
+/ name fullName variable
+/ non-weapon skills, do not change order
+skill_dodge @s_dodge
+skill_block @s_block
+skill_animal @s_animal
+/ other skills
+skill_unarmed @s_unarmed
+skill_club @s_club
+skill_blade @s_blade
+skill_archery @s_archery
+skill_brewing @s_brewing 4
+skill_art @s_art 2
+/
+/
+PLAYERPACKAGE:
+/ name fullName skill1 skill2 item1N item1type item2N item2type item3N item3Type
+pp_warrior @p_warrior skill_blade skill_block 2 it_potion 1 it_repairKit 2 it_bread
+pp_scout @p_scout skill_archery skill_dodge 2 it_potion 1 it_poisonIdol 3 it_bread
+pp_assassin @p_assassin skill_blade skill_dodge 2 it_potion 2 it_invisPotion 1 it_canFood
+pp_alchemist @p_alchemist skill_brewing skill_brewing 3 it_potion 1 it_speedPotion 2 it_bread
+pp_artist @p_artist skill_art skill_art 2 it_potion 2 it_missileIdol 2 it_caveFruit
+pp_enforcer @p_enforcer skill_club skill_block 3 it_potion 1 it_snareIdol 2 it_canFood
+/
+/
+RELIC:
+/ name fullName frame color
+/ do not change the order
+relic_rod @r_rod none none
+relic_glasses @r_glasses 76 clr_steel
+relic_toothpick @r_toothpick 77 clr_scrapWood
+/
+/
+CREATURE:
+/ name health strength dexterity intelligence speed race faction weapon armor special boots
+/ don't add any more of these
+cr_playerWarrior 100 9 8 8 5 rce_human fct_player wpn_sword arm_breastplate pp_warrior bts_enforcer
+cr_playerEnforcer 100 9 8 8 5 rce_human fct_player wpn_club arm_enforcer pp_enforcer bts_armoredShoes
+cr_playerScout 100 8 9 8 5 rce_human fct_player wpn_bow arm_leather pp_scout bts_boots
+cr_playerAssassin 100 8 9 8 5 rce_human fct_player wpn_knife arm_breastplate pp_assassin bts_boots
+cr_playerAlchemist 100 8 8 9 5 rce_human fct_player wpn_knife arm_clothes pp_alchemist bts_sandals
+cr_playerArtist 100 8 8 9 5 rce_human fct_player wpn_club arm_robes pp_artist bts_sandals
+/ boss stuff
+cr_templeGuard 100 11 10 8 4 rce_worshipper fct_worshipper wpn_sword arm_naturalHeavy ai_templeGuard none
+cr_highPriest 300 14 14 18 5 rce_goldWorshipper fct_worshipper wpn_crystalClub arm_crystalHierophant ai_highPriest none
+/ criminal enemies
+/ criminals tend to have light armor and use fast/bladed weapons
+cr_bandit1 50 8 10 8 5 rce_human fct_criminal wpn_bow arm_leather ai_criminal bts_boots
+cr_bandit2 52 8 10 8 5 rce_human fct_criminal wpn_bow arm_cheapLeather ai_criminal bts_boots
+cr_mugger1 70 10 8 8 5 rce_human fct_criminal wpn_knife arm_leather ai_criminal bts_boots
+cr_mugger2 73 10 8 8 5 rce_human fct_criminal wpn_knife arm_cheapLeather ai_criminal bts_boots
+cr_heavy 80 10 8 8 5 rce_human fct_criminal wpn_club arm_breastplate ai_criminal bts_boots
+cr_chief 130 12 12 10 5 rce_human fct_criminal wpn_sword arm_breastplate ai_chief bts_boots
+cr_prisoner1 65 10 8 8 5 rce_human fct_criminal none arm_leather ai_criminal none
+cr_prisoner2 68 10 8 8 5 rce_human fct_criminal none arm_cheapLeather ai_criminal none
+cr_crimeWolf 120 7 5 1 6 rce_wolf fct_criminal wpn_bite arm_naturalLight ai_animal none
+/ enforcer enemies
+/ enforcers tend to have enforcer armor and use slow weapons none
+cr_officer 90 10 8 8 5 rce_human fct_enforcer wpn_club arm_enforcer ai_enforcer bts_enforcer
+cr_marksman 70 8 10 8 5 rce_human fct_enforcer wpn_crossbow arm_enforcer ai_enforcer bts_enforcer
+cr_scout 60 9 9 8 5 rce_human fct_enforcer wpn_bow arm_enforcerLeather ai_enforcer bts_enforcer
+cr_
+cr_commissioner 170 12 12 10 5 rce_human fct_enforcer wpn_crossbow arm_commissioner ai_commissioner bts_enforcer
+/ animal enemies
+/ animal enemies tend to be fast, lightly armored, and use natural weapons
+cr_snake 70 5 10 1 5 rce_snake fct_animal wpn_bite arm_naturalLight ai_venemousAnimal none
+cr_spider 100 6 6 1 6 rce_spider fct_animal wpn_bite arm_naturalLight ai_venemousAnimal none
+cr_rat 55 4 7 1 5 rce_rat fct_animal wpn_bite arm_naturalLight ai_rat none
+cr_werewolf 110 6 7 1 6 rce_werewolf fct_animal wpn_werewolfClaws arm_naturalLight ai_animal none
+cr_rollo 90 8 6 1 6 rce_rollo fct_animal wpn_naturalBash arm_naturalMedium ai_animal none
+cr_wolf 120 7 5 1 6 rce_wolf fct_animal wpn_bite arm_naturalLight ai_animal none
+cr_werewolfAlpha 120 7 8 3 6 rce_werewolf fct_animal wpn_werewolfClaws arm_naturalLight ai_werewolfAlpha none
+cr_cannibal 140 5 5 4 5 rce_human fct_animal wpn_boneClub arm_boneArmor ai_animal bts_sandals
+/ special pets
+cr_petOrb 80 10 14 5 10 rce_orb fct_player wpn_strongTurret arm_naturalHeavy ai_petOrb none
+cr_petSpider 100 12 10 5 10 rce_spider fct_player wpn_bite arm_naturalLight ai_petSpider none
+/ worshipper enemies
+/ worshipper enemies tend to be slow, tough, and have heavy (natural) armor and special powers
+cr_fastTurret 60 16 10 2 1 rce_turret fct_worshipper wpn_fastTurret arm_naturalHeavy ai_turret none
+cr_strongTurret 60 16 10 2 1 rce_turret fct_worshipper wpn_strongTurret arm_naturalHeavy ai_turret none
+cr_pilgrim 60 8 9 8 5 rce_worshipper fct_worshipper wpn_naturalBash arm_naturalHeavy ai_pilgrim none
+cr_supplicant 70 12 6 8 3 rce_worshipper fct_worshipper wpn_naturalBash arm_naturalHeavy ai_supplicant none
+cr_priest 65 10 7 8 4 rce_worshipper fct_worshipper wpn_naturalBash arm_naturalHeavy ai_priest none
+cr_hierophant 195 14 14 14 5 rce_worshipper fct_worshipper wpn_sword arm_hierophant ai_hierophant none
+cr_orb 60 8 10 8 6 rce_orb fct_worshipper wpn_strongTurret arm_naturalHeavy ai_orb none
+/ pets
+/ for engine reasons this has to be in the back
+cr_petRat 90 10 14 5 10 rce_rat fct_player wpn_bite arm_naturalLight ai_petRat none
+cr_petRollo 120 10 10 5 10 rce_rollo fct_player wpn_naturalBash arm_naturalHeavy ai_petRollo none
+cr_petWolf 100 14 10 5 10 rce_wolf fct_player wpn_bite arm_naturalLight ai_petWolf none
+/
+/
+AI:
+/ name special specialMaxHealth specialChance fleeMaxHealth healMaxHealth healHealth minionType numMinions fixedWeaponEnchantment canMove petName
+ai_priest sp_blast 50 50 0 0 0 none 0 none true none
+ai_supplicant sp_missiles 50 100 0 0 0 none 0 none true none
+ai_pilgrim sp_slow 100 75 0 0 0 none 0 none true none
+ai_enforcer none 0 0 0 40 30 none 0 none true none
+ai_orb none 0 0 50 0 0 none 0 ench_snareW true none 
+ai_criminal none 0 0 25 0 0 none 0 none true none
+ai_commissioner sp_snare 100 100 0 25 0 cr_officer 1 none true none
+ai_chief sp_poison 100 100 30 0 45 cr_bandit1 2 none true none
+ai_hierophant sp_missiles 50 100 0 0 0 none 0 none true none
+ai_animal none 0 0 5 0 0 none 0 none true none
+ai_venemousAnimal none 0 0 5 0 0 none 0 ench_poisonW true none
+ai_rat none 0 0 5 0 0 cr_rat 1 none true none
+ai_werewolfAlpha sp_blast 10 100 0 0 0 cr_werewolf 3 none true none
+ai_turret none 0 0 0 0 0 none 0 none false none
+ai_petWolf none 0 0 0 0 0 none 0 none true @p_petWolf
+ai_petRollo none 0 0 0 0 0 none 0 none true @p_petRollo
+ai_petRat none 0 0 0 0 0 none 0 none true @p_petRat
+ai_petOrb none 0 0 0 0 0 none 0 ench_snareW true @p_petRat
+ai_petSpider none 0 0 0 0 0 none 0 ench_poisonW true @p_petRat
+ai_templeGuard sp_missiles 50 100 0 0 0 none 0 none true none
+ai_highPriest sp_slow 100 100 0 50 100 cr_orb 1 ench_enhancedW true none
+/ name special specialMaxHealth specialChance fleeMaxHealth healMaxHealth healHealth minionType numMinions fixedWeaponEnchantment canMove petName
+/
+/
+RACE:
+/ name body legs arms hasGender skinColors hairColors hairs roll corpse
+rce_human 0 2 4 true lst_humanSkinColors lst_humanHairColors lst_humanHairs false it_humanCorpse
+rce_worshipper 88 90 92 true lst_worshipperSkinColors none none false it_rocks
+rce_goldWorshipper 88 90 92 true lst_goldWorshipperSkinColors none none false it_goldRocks
+rce_rat none 44 none false lst_furColors none none false it_ratCorpse
+rce_rollo none 46 none false lst_chitinColors none none true it_rolloCorpse
+rce_werewolf 52 2 4 true lst_furColors none none false it_humanCorpse
+rce_snake none 54 none false lst_snakeSkinColors none none false it_snakeCorpse
+rce_spider none 60 none false lst_spiderSkinColors none none false it_spiderCorpse
+rce_turret 62 none none false lst_worshipperSkinColors none none false it_rocks
+rce_wolf none 70 none false lst_furColors none none false it_wolfCorpse
+rce_orb none 78 none false lst_worshipperSkinColors none none false it_rocks
+/
+/
+COLOR:
+/ name color
+clr_white 0xFFFFFF
+/ material colors
+clr_dirt 0xA3988A
+clr_grass 0x325416
+clr_cloth 0xADA486
+clr_stone 0x677777
+clr_darkstone 0x344444
+clr_darkRusted 0x965555
+clr_rusted 0xC68585
+clr_ebony 0x2D1F13
+clr_lead 0x5F6164
+clr_magnesium 0x9E9B92
+clr_ivory 0xD9D5CA
+clr_iron 0x9F9595
+clr_steel 0xA5A5AF
+clr_titanium 0xCFCFCF
+clr_darkmetal 0x404F40
+clr_scrapWood 0xA3905F
+clr_oak 0x6D4023
+clr_laminate 0xD29C78
+clr_hide 0x7F5336
+clr_yew 0xE4A268
+clr_darkwood 0x506C50
+clr_scrapLeather 0xAFA962
+clr_leather 0xC19070
+clr_hardenedLeather 0xA57456
+clr_treatedLeather 0xC47973
+clr_darkhide 0x564E2A
+clr_crystal 0x8682B7
+clr_yellowedBone 0xCCA353
+clr_bone 0xCBCD91
+clr_chitin 0x4C5F76
+clr_monsterBone 0xFFE3BF
+clr_monsterChitin 0x6C7481
+clr_monsterLeather 0x556D29
+clr_blood 0xF63232
+clr_fruit 0x990C4B
+clr_spiderBlood 0x3232F6
+clr_gold 0xFFD700
+/ creature colors
+clr_humanSkin1 0xFFF0F0
+clr_humanSkin2 0xDBBEBE
+clr_humanSkin3 0xC69191
+clr_humanHair1 0xFF3333
+clr_humanHair2 0x33FF33
+clr_humanHair3 0x3333FF
+/
+/
+HAIR:
+/ name frame swings hasBack
+hair_short 32 false false
+hair_long 33 true true
+/
+/
+BOOT:
+/ name frame color
+bts_sandals 30 clr_leather
+bts_boots 22 clr_leather
+bts_armoredShoes 14 clr_iron
+bts_enforcer 38 clr_iron
+/
+/
+FACTION:
+/ name pluralName
+/ note that the order of factions is hardcoded; this is what determines defeats
+fct_criminal @f_criminals
+fct_enforcer @f_enforcers
+fct_animal @f_animals
+fct_worshipper @f_worshippers
+fct_player @f_players
+/
+/
+SPECIAL:
+/ name numHits damage AoE status statusLength attackAnim fullName
+sp_missiles 4 12 false none 0 aanim_bash @x_missiles
+sp_blast 1 35 true none 0 aanim_blast @x_blast
+sp_slow 0 0 false sts_slow 4 aanim_slash @x_slow
+sp_poison 1 20 false sts_poison 6 aanim_claws @x_poison
+sp_snare 1 20 false sts_snare 1 aanim_shoot @x_snare
+/
+/
+STATUS:
+/ name variable icon
+sts_slow 50 1
+sts_poison 5 0
+sts_snare none 2
+sts_immune none 5
+sts_speed 4 4
+sts_invis 50 3
+/
+/
+ENCHANTMENT:
+/ name prefix suffix bonus durabilityMod canRemove weapon extraData* (1-?)
+/ weapon enchantments: statusEffect statusEffectLength statusEffectChance
+ench_enhancedW @e_enhancedW none 15 100 true true none 0 0
+ench_reinforcedW @e_reinforcedW none 0 150 true true none 0 0
+ench_cursedW @e_cursedW none 0 65 false true none 0 0
+ench_snareW none @e_snareW 0 100 true true sts_snare 1 25
+ench_poisonW none @e_poisonW 0 100 true true sts_poison 3 50
+ench_slowW none @e_slowW 0 100 true true sts_slow 2 50
+/ armor enchantments: meleeResistance rangedResistance specialResistance
+ench_enhancedA @e_enhancedA none 15 100 true false 0 0 0
+ench_reinforcedA @e_reinforcedA none 0 150 true false 0 0 0
+ench_cursedA @e_cursedA none 0 65 false false 0 0 0
+ench_specialA none @e_specialA 0 100 true false 0 0 25
+ench_meleeA none @e_meleeA 0 100 true false 25 0 0
+ench_rangedA none @e_rangedA 0 100 true false 0 25 0
+/
+/
+ITEM:
+/ name type effect1 effect2 effect3 frame color fullName
+/ type 0: healing (health, none, none)
+it_potion 0 50 none none 11 clr_rusted @i_potion
+/ type 1: idols (special, none, none)
+it_missileIdol 1 sp_missiles none none 12 clr_darkstone @i_missileIdol
+it_poisonIdol 1 sp_poison none none 12 clr_rusted @i_poisonIdol
+it_blastIdol 1 sp_blast none none 12 clr_stone @i_blastIdol
+it_snareIdol 1 sp_snare none none 12 clr_darkwood @i_snareIdol
+/ type 2: craftable (turns into, difficulty, skill)
+/ lower difficulty is harder (because I am bad at naming things); 100 means "50% chance to get one at 10 int and 0 skill"
+it_healingHerbs 2 it_potion 100 skill_brewing 13 clr_rusted @i_healingHerbs
+it_invisHerbs 2 it_invisPotion 60 skill_brewing 13 clr_darkstone @i_invisHerbs
+it_speedHerbs 2 it_speedPotion 80 skill_brewing 13 clr_scrapLeather @i_speedHerbs
+it_immuneHerbs 2 it_immunePotion 40 skill_brewing 13 clr_fruit @i_immuneHerbs
+it_missileRaw 2 it_missileIdol 80 skill_art 27 clr_darkstone @i_missileRaw
+it_poisonRaw 2 it_poisonIdol 60 skill_art 27 clr_rusted @i_poisonRaw
+it_blastRaw 2 it_blastIdol 40 skill_art 27 clr_stone @i_blastRaw
+it_snareRaw 2 it_snareIdol 60 skill_art 27 clr_darkwood @i_snareRaw
+/ type 3: repair (repairAmount, none, none)
+it_repairKit 3 1000 none none 14 clr_iron @i_repairKit
+/ type 4: food (hungerAmount, poisonAmount, none)
+it_bread 4 40 0 none 18 clr_leather @i_bread
+it_humanCorpse 4 140 10 none 19 clr_blood @i_humanCorpse
+it_spiderCorpse 4 100 20 none 20 clr_spiderBlood @i_spiderCorpse
+it_snakeCorpse 4 70 0 none 22 clr_spiderBlood @i_snakeCorpse
+it_ratCorpse 4 50 0 none 23 clr_blood @i_ratCorpse
+it_wolfCorpse 4 120 0 none 30 clr_blood @i_wolfCorpse
+it_canFood 4 60 0 none 25 clr_iron @i_canFood
+it_caveFruit 4 30 0 none 26 clr_fruit @i_caveFruit
+/ type 5: effect (effect, duration, none)
+it_invisPotion 5 sts_invis 5 none 11 clr_darkstone @i_invisPotion
+it_speedPotion 5 sts_speed 5 none 11 clr_scrapLeather @i_speedPotion
+it_immunePotion 5 sts_immune 10 none 11 clr_fruit @i_immunePotion
+/ type 6: pet summon (creature, none, none)
+it_wolfToken 6 cr_petWolf none none 29 clr_darkstone @i_wolfToken
+it_ratToken 6 cr_petRat none none 29 clr_rusted @i_ratToken
+it_rolloToken 6 cr_petRollo none none 29 clr_stone @i_rolloToken
+it_orbToken 6 cr_petOrb none none 29 clr_crystal @i_orbToken
+it_spiderToken 6 cr_petSpider none none 29 clr_darkwood @i_spiderToken
+/ type none: useless items
+it_rocks none none none none 21 clr_stone @i_rocks
+it_goldRocks none none none none 21 clr_gold @i_rocks
+it_crystal none none none none 28 clr_crystal @i_crystal
+it_rolloCorpse none none none none 24 clr_spiderBlood @i_rolloCorpse
+/
+/
+FILLERDATA:
